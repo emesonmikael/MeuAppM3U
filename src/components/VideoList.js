@@ -25,7 +25,7 @@ const VideoList = () => {
       onPress={() => navigation.navigate('VideoPlayer', { videoUrl: item.url })}
     >
       {item['tvg-logo'] ? (
-        <Image source={{ uri: item['logo'] }} style={styles.thumbnail} />
+        <Image source={{ uri: item['tvg-logo'] }} style={styles.thumbnail} />
       ) : (
         <View style={[styles.thumbnail, styles.placeholder]}>
           <Text style={styles.placeholderText}>Sem Imagem</Text>

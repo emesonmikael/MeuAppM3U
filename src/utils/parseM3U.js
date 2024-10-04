@@ -11,8 +11,8 @@ export const parseM3U = async (url) => {
         line = line.trim();
         if (line.startsWith('#EXTINF')) {
           const info = line.substring(line.indexOf(':') + 1);
-          // Extrair atributos usando regex
-          const attrRegex = /(\w+)="([^"]*)"/g;
+          // Atualizar a regex para capturar chaves com hífen
+          const attrRegex = /([\w-]+)="([^"]*)"/g;
           let match;
           while ((match = attrRegex.exec(info)) !== null) {
             const key = match[1];
