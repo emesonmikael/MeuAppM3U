@@ -29,6 +29,9 @@
       "eas": {
         "projectId": "b07a5a12-ce49-46c4-ab91-ae23dfeabe75"
       }
-    }
+    },
+    "plugins": [
+      "react-native-video"
+    ]
   }
 }

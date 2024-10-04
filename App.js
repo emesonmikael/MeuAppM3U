@@ -1,21 +1,51 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
-import VideoList from './src/components/VideoList';
-import VideoPlayer from './src/screens/VideoPlayer';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { parseM3UFileFromUrl } from './M3UParser';
+import ListItem from './ListItem';
+import VideoPlayer from './VideoPlayer';
 
-const Stack = createStackNavigator();
+export default function App() {
+  const [items, setItems] = useState([]);
+  const [currentUrl, setCurrentUrl] = useState(null);
 
-const App = () => {
+  const initialM3UUrl = 'https://strimer-mutimidia.vercel.app/AmaonPrimer.m3u'; // Altere para o link do arquivo M3U
+
+  useEffect(() => {
+    loadM3UFromUrl(initialM3UUrl);
+  }, []);
+
+  const loadM3UFromUrl = async (url) => {
+    const parsedItems = await parseM3UFileFromUrl(url);
+    setItems(parsedItems);
+  };
+
+  const handleItemPress = async (item) => {
+    if (item.url.endsWith('.m3u') || item.url.endsWith('.m3u8')) {
+      loadM3UFromUrl(item.url);
+    } else if (item.url.endsWith('.mp4')) {
+      setCurrentUrl(item.url);
+    }
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="VideoList">
-        <Stack.Screen name="VideoList" component={VideoList} options={{ title: 'Lista de Vídeos' }} />
-        <Stack.Screen name="VideoPlayer" component={VideoPlayer} options={{ title: 'Reprodutor' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      {currentUrl ? (
+        <VideoPlayer url={currentUrl} />
+      ) : (
+        <FlatList
+          data={items}
+          keyExtractor={(item) => item.url}
+          renderItem={({ item }) => <ListItem item={item} onPress={handleItemPress} />}
+        />
+      )}
+    </View>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
