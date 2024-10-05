@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Button } from 'react-native';
 import { parseM3UFileFromUrl } from './M3UParser';
 import ListItem from './ListItem';
 import VideoPlayer from './VideoPlayer';
@@ -24,19 +23,30 @@ export default function App() {
     if (item.url.endsWith('.m3u') || item.url.endsWith('.m3u8')) {
       loadM3UFromUrl(item.url);
     } else if (item.url.endsWith('.mp4')) {
+     
       setCurrentUrl(item.url);
     }
+  };
+
+  const handleBackToList = () => {
+    setCurrentUrl(null); // Volta para a lista
   };
 
   return (
     <View style={styles.container}>
       {currentUrl ? (
-        <VideoPlayer url={currentUrl} />
+        <View style={styles.videoContainer}>
+          <Button title="Voltar para a lista" onPress={handleBackToList} />
+          <VideoPlayer url={currentUrl} />
+        </View>
       ) : (
         <FlatList
           data={items}
           keyExtractor={(item) => item.url}
-          renderItem={({ item }) => <ListItem item={item} onPress={handleItemPress} />}
+          numColumns={2} // Exibe 2 colunas
+          renderItem={({ item }) => (
+            <ListItem item={item} onPress={handleItemPress} />
+          )}
         />
       )}
     </View>
@@ -47,5 +57,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  videoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

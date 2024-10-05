@@ -1,42 +1,38 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
 
 const ListItem = ({ item, onPress }) => {
   return (
-    <TouchableOpacity onPress={() => onPress(item)}>
-      <View style={styles.itemContainer}>
-        {item.image ? (
-          <Image source={{ uri: item.image }} style={styles.image} />
-        ) : (
-          <View style={styles.placeholderImage} />
-        )}
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
+    <TouchableOpacity onPress={() => onPress(item)} style={styles.itemContainer}>
+      <Image source={{ uri: item.image }} style={styles.image} />
+      <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   itemContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
+    flex: 1,
+    margin: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#f9f9f9',
   },
   image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
+    width: screenWidth / 2 - 30, // Ajusta para caber em 2 colunas
+    height: 150,
+    resizeMode: 'cover',
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-  },
-  placeholderImage: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#ccc',
-    marginRight: 10,
+    padding: 10,
+    textAlign: 'center',
   },
 });
 
