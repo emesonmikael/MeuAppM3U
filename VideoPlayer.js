@@ -6,7 +6,9 @@ const VideoPlayer = ({ url }) => {
   const videoRef = useRef(null);
 
   return (
+    
     <View style={styles.container}>
+      
       <Video
         ref={videoRef}
         source={{ uri: url }}

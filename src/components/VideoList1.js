@@ -8,21 +8,36 @@ const VideoList = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true); // Estado de carregamento
   const navigation = useNavigation();
+  const [items, setItems] = useState([]);
+  const [currentUrl, setCurrentUrl] = useState(null);
 
   useEffect(() => {
     const loadM3U = async () => {
-      const lista = await parseM3U ('https://strimer-mutimidia.vercel.app/AmaonPrimer.m3u');//('https://strimer-mutimidia.vercel.app/filmes.m3u'); // Substitua pela URL correta
+      const lista = await parseM3U ('https://strimer-mutimidia.vercel.app/filmes.m3u');//('https://strimer-mutimidia.vercel.app/AmaonPrimer.m3u'); // Substitua pela URL correta
       console.log('Lista de vídeos carregada:', lista); // Verificação de depuração
       setVideos(lista);
       setLoading(false);
+      loadM3UFromUrl(lista);
     };
     loadM3U();
   }, []);
+  const loadM3UFromUrl = async (url) => {
+    const parsedItems = await parseM3UFileFromUrl(url);
+    setVideos(parsedItems);
+    setLoading(false);
+  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity 
       style={styles.itemContainer}
-      onPress={() => navigation.navigate('VideoPlayer', { videoUrl: item.url })}
+      onPress={()  => 
+     {if(item.url.endsWith('.m3u') || item.url.endsWith('.m3u8')){loadM3UFromUrl(item.url)} else if (item.url.endsWith('.mp4')) {
+     
+      navigation.navigate('VideoPlayer', { videoUrl: item.url })
+    } }
+       
+
+      }
     >
       {item['tvg-logo'] ? (
         <Image source={{ uri: item['tvg-logo'] }} style={styles.thumbnail} />
