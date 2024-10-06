@@ -4,7 +4,7 @@
     "slug": "meuappm3u",
     "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/icon.png", 
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,12 +18,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emesonmikael.meuappm3u" 
+      "bundleIdentifier": "com.emesonmikael.meuappm3u"
     },
     "android": {
-      "package": "com.emesonmikael.meuappm3u", 
+      "package": "com.emesonmikael.meuappm3u",
       "versionCode": 1,
-      "permissions": ["INTERNET"],
+      "permissions": [
+        "INTERNET"
+      ],
       "networkSecurityConfig": {
         "rules": [
           {
@@ -35,6 +37,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8073d0de-1b0f-4d24-99c8-2fc3ba97c309"
+      }
     }
   }
 }
