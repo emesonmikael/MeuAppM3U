@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,8 +12,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="VideoList">
-        <Stack.Screen name="VideoList" component={VideoList} options={{ title: 'Lista de Vídeos' }} />
-        <Stack.Screen name="VideoPlayer" component={VideoPlayer} options={{ title: 'Reprodutor' }} />
+        <Stack.Screen 
+          name="VideoList" 
+          component={VideoList} 
+          options={{ title: 'Lista de Vídeos' }} 
+        />
+        <Stack.Screen 
+          name="VideoPlayer" 
+          component={VideoPlayer} 
+          options={{ title: 'Reprodutor' }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
