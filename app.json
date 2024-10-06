@@ -1,37 +1,40 @@
 {
   "expo": {
     "name": "MeuAppM3U",
-    "slug": "MeuAppM3U",
-    "version": "1.0.2",
+    "slug": "meuappm3u",
+    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png", 
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "*/"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emesonmikael.MeuAppM3U"
+      "bundleIdentifier": "com.emesonmikael.meuappm3u" 
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.emesonmikael.MeuAppM3U"
+      "package": "com.emesonmikael.meuappm3u", 
+      "versionCode": 1,
+      "permissions": ["INTERNET"],
+      "networkSecurityConfig": {
+        "rules": [
+          {
+            "domain": "*",
+            "cleartextTrafficPermitted": true
+          }
+        ]
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "b07a5a12-ce49-46c4-ab91-ae23dfeabe75"
-      }
-    },
-    "plugins": [
-      "react-native-video"
-    ]
+    }
   }
 }
